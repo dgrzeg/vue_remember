@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       selectedTab: 'stored-resources',
-      storedresources: [
+      storedResources: [
         {
           id: 'official-guide',
           title: 'Official Guide',
@@ -54,8 +54,9 @@ export default {
   },
   provide() {
     return {
-      resources: this.storedresources,
+      resources: this.storedResources,
       addResource: this.addResource,
+      deleteResource: this.removeResource,
     };
   },
   methods: {
@@ -69,8 +70,14 @@ export default {
         description: description,
         link: link,
       };
-      this.storedresources.unshift(newResource);
+      this.storedResources.unshift(newResource);
       this.selectedTab = 'stored-resources';
+    },
+    removeResource(resId) {
+      const resIndex = this.storedResources.findIndex(
+        (res) => res.id === resId
+      );
+      this.storedResources.splice(resIndex, 1);
     },
   },
 };
